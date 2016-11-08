@@ -10,8 +10,8 @@
     </servlet>
 
     <servlet>
-        <servlet-name>inserirCPF</servlet-name>
-        <servlet-class>InserirCPF</servlet-class>
+        <servlet-name>cliente</servlet-name>
+        <servlet-class>controller.ClienteController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -19,7 +19,9 @@
         <url-pattern>/montar-roteiro</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>inserirCPF</servlet-name>
-        <url-pattern>/inserir-cpf</url-pattern>
+        <servlet-name>cliente</servlet-name>
+        <url-pattern>/clientes</url-pattern>
+        <url-pattern>/cliente</url-pattern>
+        <url-pattern>/cliente-by-cpf</url-pattern>
     </servlet-mapping>
 </web-app>

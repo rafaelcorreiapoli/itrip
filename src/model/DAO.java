@@ -10,12 +10,11 @@ import java.sql.SQLException;
  * Created by rafa93br on 08/11/16.
  */
 public class DAO {
-    private static final CidadeDAO instance = new CidadeDAO();
     private static String USER = "root";
     private static String PASSWORD = "q1w2e3";
     private static String HOST = "localhost";
     private static Integer PORT = 3306;
-    private static String DB = "itrip";
+    private static String DB = "mdb108";
 
     protected DAO() {
         try {
@@ -36,7 +35,4 @@ public class DAO {
         );
     }
 
-    public static CidadeDAO getInstance() {
-        return instance;
-    }
 }
