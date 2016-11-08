@@ -19,50 +19,84 @@ import java.util.List;
  * Created by rafa93br on 04/11/16.
  */
 @WebServlet(name = "ClienteController")
-public class ClienteController extends HttpServlet {
+public class ClienteController extends Controller {
+    ClienteDAO dao = ClienteDAO.getInstance();
 
-    private void prepareResponse(HttpServletResponse response) {
-        response.setContentType("application/json");
-    }
+    /**
+     * POST
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
+    /**
+     * GET
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Gson gson = new Gson();
-        PrintWriter writer = response.getWriter();
-
-
         String servletPath = request.getServletPath();
-        log(servletPath);
-        Cliente cliente = null;
         this.prepareResponse(response);
 
-        ClienteDAO dao = ClienteDAO.getInstance();
-
         switch (servletPath) {
-            case "/clientes":
-                List<Cliente> lista = dao.getAll();
-                writer.write(gson.toJson(lista));
-                break;
-            case "/cliente":
-                String id = (String) request.getParameter("id");
-
-                if (id != null) {
-                    cliente = dao.getClienteById(Integer.parseInt(id));
-                }
-                writer.write(gson.toJson(cliente));
-                break;
-            case "/cliente-by-cpf":
-                String cpf = (String) request.getParameter("cpf");
-                if (cpf != null) {
-                    cliente = dao.getClienteByCpf(cpf);
-                }
-                writer.write(gson.toJson(cliente));
-                break;
+            case "/clientes": this.clientes(request, response); break;
+            case "/cliente": this.cliente(request, response); break;
+            case "/cliente-by-cpf": this.clienteByCpf(request, response); break;
         }
     }
 
+    /**
+     * Devolver lista de clientes
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void clientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter writer = response.getWriter();
+        List<Cliente> lista = dao.getAll();
+        writer.write(gson.toJson(lista));
+    }
 
+    /**
+     * Devolver um cliente especifico, por id
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void cliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = (String) request.getParameter("id");
+        PrintWriter writer = response.getWriter();
+        Cliente cliente = null;
+        if (id != null) {
 
+            cliente = dao.getClienteById(Integer.parseInt(id));
+        }
+        writer.write(gson.toJson(cliente));
+    }
+
+    /**
+     * Devolver um cliente pelo CPF
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+
+    private void clienteByCpf(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cliente cliente = null;
+        PrintWriter writer = response.getWriter();
+        String cpf = (String) request.getParameter("cpf");
+        if (cpf != null) {
+            cliente = dao.getClienteByCpf(cpf);
+        }
+        writer.write(gson.toJson(cliente));
+    }
 }
