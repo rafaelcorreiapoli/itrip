@@ -22,7 +22,7 @@ public class CidadeDAO extends DAO {
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                cidades.add(new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getBoolean("temAeroporto"), rs.getInt("numeroDiasIdeal")));
+                cidades.add(new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getBoolean("tem_aeroporto"), rs.getInt("numero_dias_ideal")));
             }
             connection.close();
 
