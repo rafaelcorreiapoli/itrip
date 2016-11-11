@@ -1,8 +1,6 @@
 package model.itnerario;
 
 import model.DAO;
-import model.hotel.Hotel;
-import model.hotel.HotelDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,18 +19,18 @@ public class ItnerarioDAO extends DAO {
         return instance;
     }
 
-    private Itnerario createItnerarioFromRow(ResultSet rs) throws SQLException {
-        return new Itnerario(rs.getInt("id"), rs.getString("meio_de_transporte"), rs.getDouble("custo"), rs.getInt("duracao"));
+    private Itinerario createItnerarioFromRow(ResultSet rs) throws SQLException {
+        return new Itinerario(rs.getInt("id"), rs.getString("meio_de_transporte"), rs.getDouble("custo"), rs.getInt("duracao"));
     }
 
-    public List<Itnerario> getItnerariosEntreCidades(int cidadeA, int cidadeB) {
-        List<Itnerario> itnerarios = new ArrayList<Itnerario>();
+    public List<Itinerario> getItnerariosEntreCidades(int cidadeA, int cidadeB) {
+        List<Itinerario> itnerarios = new ArrayList<Itinerario>();
 
         try {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM itnerario WHERE parte_de = ? AND chega_em = ?";
+            String query = "SELECT * FROM itinerario WHERE parte_de = ? AND chega_em = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, cidadeA);
             preparedStatement.setInt(2, cidadeB);

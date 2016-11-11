@@ -30,7 +30,7 @@ public class ClienteController extends Controller {
      * @throws IOException
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String nome = request.getParameter("nome");
     }
 
     /**
@@ -43,6 +43,7 @@ public class ClienteController extends Controller {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
         this.prepareResponse(response);
+
 
         log(servletPath);
         switch (servletPath) {

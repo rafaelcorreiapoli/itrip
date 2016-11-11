@@ -1,8 +1,6 @@
 package controller;
 
-import model.hotel.Hotel;
-import model.hotel.HotelDAO;
-import model.itnerario.Itnerario;
+import model.itnerario.Itinerario;
 import model.itnerario.ItnerarioDAO;
 
 import javax.servlet.ServletException;
@@ -49,7 +47,7 @@ public class ItnerarioController extends Controller {
         PrintWriter writer = response.getWriter();
         Integer cidadeA = Integer.parseInt(request.getParameter("cidadeA"));
         Integer cidadeB = Integer.parseInt(request.getParameter("cidadeB"));
-        List<Itnerario> itnerarios = dao.getItnerariosEntreCidades(cidadeA, cidadeB);
+        List<Itinerario> itnerarios = dao.getItnerariosEntreCidades(cidadeA, cidadeB);
         writer.write(gson.toJson(itnerarios));
     }
 }
