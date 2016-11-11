@@ -18,6 +18,7 @@ public class ClienteDAO extends DAO {
     private Cliente createClienteFromRow(ResultSet rs) throws SQLException {
         return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("nome"), rs.getDate("nascimento"), rs.getBoolean("sexo"), rs.getString("email"), rs.getString("telefone"));
     }
+
     public List<Cliente> getAll() {
         ArrayList<Cliente> clientes = new ArrayList<>();
         try {
@@ -29,6 +30,7 @@ public class ClienteDAO extends DAO {
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
+                System.out.println(rs.getInt("id"));
                 clientes.add(this.createClienteFromRow(rs));
             }
             connection.close();
@@ -92,7 +94,7 @@ public class ClienteDAO extends DAO {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM cliente WHERE id = ?";
+            String query = "SELECT * FROM cliente WHERE id = ? ? ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
 
