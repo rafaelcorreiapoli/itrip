@@ -17,5 +17,6 @@ public class Controller extends HttpServlet {
      */
     protected void prepareResponse(HttpServletResponse response) {
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
     }
 }

@@ -6,6 +6,26 @@
 
 
     <servlet>
+        <servlet-name>itnerario</servlet-name>
+        <servlet-class>controller.ItnerarioController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>itnerario</servlet-name>
+        <url-pattern>/itnerarios-entre-cidades</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>hotel</servlet-name>
+        <servlet-class>controller.HotelController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>hotel</servlet-name>
+        <url-pattern>/hoteis-por-cidade</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>cliente</servlet-name>
         <servlet-class>controller.ClienteController</servlet-class>
     </servlet>
@@ -15,6 +35,19 @@
         <url-pattern>/clientes</url-pattern>
         <url-pattern>/cliente</url-pattern>
         <url-pattern>/cliente-by-cpf</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cidade</servlet-name>
+        <servlet-class>controller.CidadeController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cidade</servlet-name>
+        <url-pattern>/cidades</url-pattern>
+        <url-pattern>/cidades-acessiveis-por-cidade</url-pattern>
+        <url-pattern>/cidades-que-acessam-cidade</url-pattern>
+        <url-pattern>/cidade</url-pattern>
     </servlet-mapping>
 
     <filter>

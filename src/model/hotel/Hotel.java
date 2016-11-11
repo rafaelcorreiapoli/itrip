@@ -4,12 +4,12 @@ package model.hotel;
  * Created by rafa93br on 08/11/16.
  */
 public class Hotel {
-    private String id;
+    private Integer id;
     private String nome;
     private Double precoDiaria;
     private String endereco;
 
-    public Hotel(String id, String nome, Double precoDiaria, String endereco) {
+    public Hotel(Integer id, String nome, Double precoDiaria, String endereco) {
         super();
         this.id = id;
         this.nome = nome;
@@ -17,11 +17,11 @@ public class Hotel {
         this.endereco = endereco;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNome() {

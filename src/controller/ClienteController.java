@@ -44,6 +44,7 @@ public class ClienteController extends Controller {
         String servletPath = request.getServletPath();
         this.prepareResponse(response);
 
+        log(servletPath);
         switch (servletPath) {
             case "/clientes": this.clientes(request, response); break;
             case "/cliente": this.cliente(request, response); break;
@@ -97,6 +98,7 @@ public class ClienteController extends Controller {
         if (cpf != null) {
             cliente = dao.getClienteByCpf(cpf);
         }
+        log(cpf);
         writer.write(gson.toJson(cliente));
     }
 }

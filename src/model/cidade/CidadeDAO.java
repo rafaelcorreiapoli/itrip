@@ -37,7 +37,57 @@ public class CidadeDAO extends DAO {
         return cidades;
     }
 
-    public Cidade getSingle(int id) {
+    public List<Cidade> getCidadesQueAcessamCidade(Integer cidadeId) {
+        ArrayList<Cidade> cidades = new ArrayList<>();
+
+        try {
+            Connection connection = getConexao();
+            Statement statement = connection.createStatement();
+
+            String query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itnerario I, cidade C WHERE I.chega_em = ? AND I.parte_de = C.id GROUP BY parte_de";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cidadeId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+                System.out.println(">>" + rs.getInt("id") + rs.getString("nome"));
+                cidades.add(this.createCidadeFromRow(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cidades;
+    }
+
+    public List<Cidade> getCidadesAcessiveisPorCidade(Integer cidadeId) {
+        ArrayList<Cidade> cidades = new ArrayList<>();
+
+        try {
+            Connection connection = getConexao();
+            Statement statement = connection.createStatement();
+
+            String query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itnerario I, cidade C WHERE I.parte_de = ? AND I.chega_em = C.id GROUP BY chega_em";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cidadeId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+                cidades.add(this.createCidadeFromRow(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cidades;
+    }
+    public Cidade getCidadeById(int id) {
         Cidade cidade = null;
         try {
             Connection connection = getConexao();
@@ -62,7 +112,7 @@ public class CidadeDAO extends DAO {
         return cidade;
     }
 
-    public CidadeDAO getInstance () {
+    public static CidadeDAO getInstance () {
         return instance;
     }
 }
