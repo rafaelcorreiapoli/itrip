@@ -10,9 +10,9 @@ import java.sql.SQLException;
  * Created by rafa93br on 08/11/16.
  */
 public class DAO {
-    private static String USER = "root";
-    private static String PASSWORD = "q1w2e3";
-    private static String HOST = "localhost";
+    private static String USER = "t2g8";
+    private static String PASSWORD = "U3v;Ax";
+    private static String HOST = "143.107.102.14";
     private static Integer PORT = 3306;
     private static String DB = "mdb108";
 
