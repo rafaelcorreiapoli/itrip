@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by rafa93br on 09/11/16.
  */
-public class ItnerarioController extends Controller {
+public class ItinerarioController extends Controller {
     ItnerarioDAO dao = ItnerarioDAO.getInstance();
 
     /**

@@ -1,6 +1,9 @@
 package model.itnerario;
 
 import model.DAO;
+import model.cidade.Cidade;
+import model.cidade.CidadeDAO;
+import model.hotel.Hotel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +23,12 @@ public class ItnerarioDAO extends DAO {
     }
 
     private Itinerario createItnerarioFromRow(ResultSet rs) throws SQLException {
-        return new Itinerario(rs.getInt("id"), rs.getString("meio_de_transporte"), rs.getDouble("custo"), rs.getInt("duracao"));
+        Cidade chegaEm = CidadeDAO.getInstance().getCidadeById(rs.getInt("chega_em"), false);
+        Cidade parteDe = CidadeDAO.getInstance().getCidadeById(rs.getInt("parte_de"), false);
+        Itinerario itinerario = new Itinerario(rs.getInt("id"), rs.getString("meio_de_transporte"), rs.getDouble("custo"), rs.getInt("duracao"));
+        itinerario.setChegaEm(chegaEm);
+        itinerario.setParteDe(parteDe);
+        return itinerario;
     }
 
     public List<Itinerario> getItnerariosEntreCidades(int cidadeA, int cidadeB) {
@@ -49,4 +57,55 @@ public class ItnerarioDAO extends DAO {
 
         return itnerarios;
     }
+
+    public Itinerario getItinerarioById(int id) {
+        Itinerario itinerario = null;
+        try {
+            Connection connection = getConexao();
+            Statement statement = connection.createStatement();
+
+            String query = "SELECT * FROM itinerario WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                itinerario = this.createItnerarioFromRow(rs);
+            }
+
+            connection.close();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itinerario;
+    }
+
+    public List<Itinerario> getItnerariosPartindoDaCidade(Cidade cidade) {
+       List<Itinerario> itinerarios = new ArrayList<Itinerario>();
+        try {
+            Connection connection = getConexao();
+            Statement statement = connection.createStatement();
+
+            String query = "SELECT * FROM itinerario WHERE parte_de = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, cidade.getId());
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                itinerarios.add(this.createItnerarioFromRow(rs));
+            }
+
+            connection.close();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itinerarios;
+    }
+
 }

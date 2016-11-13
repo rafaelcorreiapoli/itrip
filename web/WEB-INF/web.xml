@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>itnerario</servlet-name>
-        <servlet-class>controller.ItnerarioController</servlet-class>
+        <servlet-class>controller.ItinerarioController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -48,6 +48,16 @@
         <url-pattern>/cidades-acessiveis-por-cidade</url-pattern>
         <url-pattern>/cidades-que-acessam-cidade</url-pattern>
         <url-pattern>/cidade</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>roteiro</servlet-name>
+        <servlet-class>controller.RoteiroController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>roteiro</servlet-name>
+        <url-pattern>/salvar-roteiro</url-pattern>
     </servlet-mapping>
 
     <filter>

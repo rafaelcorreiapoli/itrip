@@ -1,5 +1,7 @@
 package model.hotel;
 
+import model.cidade.Cidade;
+
 /**
  * Created by rafa93br on 08/11/16.
  */
@@ -8,6 +10,7 @@ public class Hotel {
     private String nome;
     private Double precoDiaria;
     private String endereco;
+    Cidade cidade;
 
     public Hotel(Integer id, String nome, Double precoDiaria, String endereco) {
         super();
@@ -41,5 +44,13 @@ public class Hotel {
     }
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }

@@ -28,27 +28,24 @@ public class Itinerario {
         this.id = id;
     }
 
-    public String getMeioDeTransporte() {
-        return meioDeTransporte;
-    }
-
-    public void setMeioDeTransporte(String meioDeTransporte) {
-        this.meioDeTransporte = meioDeTransporte;
-    }
-
     public Double getCusto() {
         return custo;
     }
 
-    public void setCusto(Double custo) {
-        this.custo = custo;
+    public Cidade getParteDe() {
+        return parteDe;
     }
 
-    public Integer getDuracao() {
-        return duracao;
+    public void setParteDe(Cidade parteDe) {
+        this.parteDe = parteDe;
     }
 
-    public void setDuracao(Integer duracao) {
-        this.duracao = duracao;
+    public Cidade getChegaEm() {
+        return chegaEm;
     }
+
+    public void setChegaEm(Cidade chegaEm) {
+        this.chegaEm = chegaEm;
+    }
+
 }

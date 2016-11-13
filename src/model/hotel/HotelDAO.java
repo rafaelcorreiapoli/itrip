@@ -1,6 +1,8 @@
 package model.hotel;
 
 import model.DAO;
+import model.cidade.Cidade;
+import model.cidade.CidadeDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +22,10 @@ public class HotelDAO extends DAO {
     }
 
     private Hotel createHotelFromRow(ResultSet rs) throws SQLException {
-        return new Hotel(rs.getInt("id"), rs.getString("nome"), rs.getDouble("preco_diaria"), rs.getString("endereco"));
+        Hotel hotel = new Hotel(rs.getInt("id"), rs.getString("nome"), rs.getDouble("preco_diaria"), rs.getString("endereco"));
+        hotel.setCidade(CidadeDAO.getInstance().getCidadeById(rs.getInt("cidade_id"), true));
+
+        return hotel;
     }
 
     public List<Hotel> getHoteisByCidade(int cidadeId) {
@@ -47,6 +52,33 @@ public class HotelDAO extends DAO {
         }
 
         return hoteis;
+    }
+
+    public Hotel getHotelById(int id) {
+        Hotel hotel = null;
+        try {
+            Connection connection = getConexao();
+            Statement statement = connection.createStatement();
+
+            String query = "SELECT * FROM hotel WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                hotel = this.createHotelFromRow(rs);
+            }
+
+
+
+            connection.close();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return hotel;
     }
 
 }

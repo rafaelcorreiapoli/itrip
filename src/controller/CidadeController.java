@@ -90,7 +90,7 @@ public class CidadeController extends Controller {
         PrintWriter writer = response.getWriter();
         Cidade cidade = null;
         if (id != null) {
-            cidade = dao.getCidadeById(Integer.parseInt(id));
+            cidade = dao.getCidadeById(Integer.parseInt(id), true);
         }
         writer.write(gson.toJson(cidade));
     }

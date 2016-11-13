@@ -1,5 +1,10 @@
 package model.cidade;
 
+import model.itnerario.Itinerario;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by rafa93br on 08/11/16.
  */
@@ -8,6 +13,7 @@ public class Cidade {
     private boolean temAeroporto;
     private int numeroDiasIdeal;
     private Integer id;
+    List<Itinerario> itinerarios = new ArrayList<Itinerario>();
 
     public Cidade(Integer id, String nome, boolean temAeroporto, int numeroDiasIdeal){
         this.nome = nome;
@@ -20,6 +26,31 @@ public class Cidade {
         return this.id;
     }
 
+
+    public List<Itinerario> getItinerarios() {
+        return itinerarios;
+    }
+
+    public void setItinerarios(List<Itinerario> itinerarios) {
+        this.itinerarios = itinerarios;
+    }
+
+    public Boolean temItinerarioPara(Cidade cidade) {
+
+        for (Itinerario itinerario : this.itinerarios) {
+            System.out.println(itinerario.getId());
+            System.out.println(itinerario.getChegaEm().getId());
+            if (itinerario.getChegaEm().getId() == cidade.getId()) {
+                return true;
+            };
+        }
+
+        return false;
+    }
+
+    public Boolean temItinerarioDe(Cidade cidade) {
+        return cidade.temItinerarioPara(this);
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -37,16 +68,5 @@ public class Cidade {
         return temAeroporto;
     }
 
-    public void setTemAeroporto(boolean temAeroporto) {
-        this.temAeroporto = temAeroporto;
-    }
-
-    public int getNumeroDiasIdeal() {
-        return numeroDiasIdeal;
-    }
-
-    public void setNumeroDiasIdeal(int numeroDiasIdeal) {
-        this.numeroDiasIdeal = numeroDiasIdeal;
-    }
 
 }
