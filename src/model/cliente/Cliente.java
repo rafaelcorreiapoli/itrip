@@ -36,10 +36,6 @@ public class Cliente {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -50,17 +46,10 @@ public class Cliente {
 
     public Date getNascimento() {return nascimento;}
 
-    public void setNascimento(Date nascimento) {this.nascimento = nascimento;}
-
     public Boolean getSexo() {return sexo;}
-
-    public void setSexo(Boolean sexo) {this.sexo = sexo;}
 
     public String getEmail() {return email;}
 
-    public void setEmail(String email) {this.email = email;}
-
     public String getTelefone() {return telefone;}
 
-    public void setTelefone(String telefone) {this.telefone = telefone;}
 }

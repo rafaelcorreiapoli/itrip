@@ -2,7 +2,7 @@ package model.cidade;
 
 import model.DAO;
 import model.itnerario.Itinerario;
-import model.itnerario.ItnerarioDAO;
+import model.itnerario.ItinerarioDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class CidadeDAO extends DAO {
 
 
             if (fetchItinerarios) {
-                List<Itinerario> itinerarios = ItnerarioDAO.getInstance().getItnerariosPartindoDaCidade(cidade);
+                List<Itinerario> itinerarios = ItinerarioDAO.getInstance().getItnerariosPartindoDaCidade(cidade);
                 cidade.setItinerarios(itinerarios);
             }
 

@@ -75,10 +75,6 @@ public class Estadia {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
     public Itinerario getItinerario() {
         return itinerario;
     }

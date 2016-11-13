@@ -3,7 +3,6 @@ package model.itnerario;
 import model.DAO;
 import model.cidade.Cidade;
 import model.cidade.CidadeDAO;
-import model.hotel.Hotel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,13 +11,13 @@ import java.util.List;
 /**
  * Created by rafa93br on 09/11/16.
  */
-public class ItnerarioDAO extends DAO {
-    private static final ItnerarioDAO instance = new ItnerarioDAO();
-    public ItnerarioDAO() {
+public class ItinerarioDAO extends DAO {
+    private static final ItinerarioDAO instance = new ItinerarioDAO();
+    public ItinerarioDAO() {
         super();
     }
 
-    public static ItnerarioDAO getInstance () {
+    public static ItinerarioDAO getInstance () {
         return instance;
     }
 

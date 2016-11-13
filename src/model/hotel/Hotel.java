@@ -36,15 +36,6 @@ public class Hotel {
     public Double getPrecoDiaria() {
         return precoDiaria;
     }
-    public void setPrecoDiaria(Double precoDiaria) {
-        this.precoDiaria = precoDiaria;
-    }
-    public String getEndereco() {
-        return endereco;
-    }
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
 
     public Cidade getCidade() {
         return cidade;

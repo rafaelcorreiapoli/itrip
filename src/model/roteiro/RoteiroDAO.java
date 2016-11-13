@@ -1,9 +1,7 @@
 package model.roteiro;
 
 import model.DAO;
-import model.cidade.CidadeDAO;
 import model.estadia.Estadia;
-import model.itnerario.ItnerarioDAO;
 
 import java.sql.*;
 import java.util.ArrayList;

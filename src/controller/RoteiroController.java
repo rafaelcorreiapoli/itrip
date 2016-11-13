@@ -1,28 +1,20 @@
 package controller;
 
-import com.google.gson.reflect.TypeToken;
 import model.cidade.Cidade;
 import model.cidade.CidadeDAO;
 import model.estadia.Estadia;
 import model.hotel.Hotel;
 import model.hotel.HotelDAO;
 import model.itnerario.Itinerario;
-import model.itnerario.ItnerarioDAO;
+import model.itnerario.ItinerarioDAO;
 import model.roteiro.Roteiro;
 import model.roteiro.RoteiroDAO;
-import sun.misc.IOUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +58,7 @@ public class RoteiroController extends Controller {
         // Pegar instancias dos DAOs
         CidadeDAO cidadeDAO = CidadeDAO.getInstance();
         HotelDAO hotelDAO = HotelDAO.getInstance();
-        ItnerarioDAO itinerarioDAO = ItnerarioDAO.getInstance();
+        ItinerarioDAO itinerarioDAO = ItinerarioDAO.getInstance();
         RoteiroDAO roteiroDAO = RoteiroDAO.getInstance();
 
         // Instanciar Roteiro...

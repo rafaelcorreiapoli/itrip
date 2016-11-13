@@ -1,7 +1,7 @@
 package controller;
 
 import model.itnerario.Itinerario;
-import model.itnerario.ItnerarioDAO;
+import model.itnerario.ItinerarioDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by rafa93br on 09/11/16.
  */
 public class ItinerarioController extends Controller {
-    ItnerarioDAO dao = ItnerarioDAO.getInstance();
+    ItinerarioDAO dao = ItinerarioDAO.getInstance();
 
     /**
      * POST
