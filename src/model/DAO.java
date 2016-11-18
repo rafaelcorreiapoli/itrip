@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class DAO {
     private static String USER = "root";
-    private static String PASSWORD = "q1w2e3";
+    private static String PASSWORD = "labsoft";
     private static String HOST = "localhost";
     private static Integer PORT = 3306;
     private static String DB = "mdb108";

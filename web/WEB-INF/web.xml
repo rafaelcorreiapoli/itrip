@@ -35,6 +35,13 @@
         <url-pattern>/clientes</url-pattern>
         <url-pattern>/cliente</url-pattern>
         <url-pattern>/cliente-by-cpf</url-pattern>
+        <url-pattern>/listar-clientes</url-pattern>
+        <url-pattern>/adicionar-cliente</url-pattern>
+        <url-pattern>/adicionar-cliente-post</url-pattern>
+        <url-pattern>/editar-cliente</url-pattern>
+        <url-pattern>/editar-cliente-post</url-pattern>
+        <url-pattern>/deletar-cliente-post</url-pattern>
+
     </servlet-mapping>
 
     <servlet>

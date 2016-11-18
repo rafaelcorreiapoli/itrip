@@ -13,6 +13,14 @@ public class Cliente {
     private String email;
     private String telefone;
 
+    public Cliente(String cpf, String nome, Date nascimento, Boolean sexo, String email, String telefone) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.sexo = sexo;
+        this.email = email;
+        this.telefone = telefone;
+    }
 
     public Cliente(int id, String cpf, String nome, Date nascimento, Boolean sexo, String email, String telefone) {
         this.id = id;

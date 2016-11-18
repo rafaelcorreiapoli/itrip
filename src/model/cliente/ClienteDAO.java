@@ -16,7 +16,7 @@ public class ClienteDAO extends DAO {
     }
 
     private Cliente createClienteFromRow(ResultSet rs) throws SQLException {
-        return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("nome"), rs.getDate("nascimento"), rs.getBoolean("sexo"), rs.getString("email"), rs.getString("telefone"));
+        return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("nome"), rs.getDate("data_nascimento"), rs.getBoolean("sexo"), rs.getString("email"), rs.getString("telefone"));
     }
 
     public List<Cliente> getAll() {
@@ -42,28 +42,51 @@ public class ClienteDAO extends DAO {
         return clientes;
     }
 
-    public Boolean deletaCliente(Cliente cliente){
+    public Boolean deletaCliente(Integer id){
         try {
             Connection connection = getConexao();
             String query = "DELETE FROM cliente WHERE cliente.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, cliente.getId());
-            Boolean executou = preparedStatement.execute();
+            preparedStatement.setInt(1, id);
 
+
+            Boolean resultado =  preparedStatement.executeUpdate() == 1;
             connection.close();
-            return  executou;
+            return resultado;
         } catch(SQLException e) {
             e.printStackTrace();
             throw new Error("Não conseguiu conexão");
         }
     }
 
-    public Integer inserirCliente(Cliente cliente) {
+    public Boolean editarCliente(Cliente cliente){
+        try {
+            Connection connection = getConexao();
+            String query = "UPDATE cliente SET nome=?, data_nascimento=?, sexo=?, cpf=?, email=?, telefone=? WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, cliente.getNome());
+            preparedStatement.setDate(2, new Date(cliente.getNascimento().getTime()));
+            preparedStatement.setBoolean(3, cliente.getSexo());
+            preparedStatement.setString(4, cliente.getCpf());
+            preparedStatement.setString(5, cliente.getEmail());
+            preparedStatement.setString(6, cliente.getTelefone());
+            preparedStatement.setInt(7, cliente.getId());
+
+
+            Boolean resultado =  preparedStatement.executeUpdate() == 1;
+            connection.close();
+            return resultado;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw new Error("Não conseguiu conexão");
+        }
+    }
+    public Integer inserirCliente(Cliente cliente) throws Error {
         try {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "INSERT INTO CLIENTE (nome, data_nascimento, sexo, cpf, email, telefone)" +
+            String query = "INSERT INTO cliente (nome, data_nascimento, sexo, cpf, email, telefone)" +
                     "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, cliente.getNome());
@@ -74,7 +97,7 @@ public class ClienteDAO extends DAO {
             preparedStatement.setString(6, cliente.getTelefone());
 
             Integer clienteId = preparedStatement.executeUpdate();
-
+            System.out.println(clienteId.toString());
             if (clienteId == null) {
                 throw new Error("Não conseguiu salvar cliente");
             }
@@ -94,7 +117,7 @@ public class ClienteDAO extends DAO {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM cliente WHERE id = ? ? ?";
+            String query = "SELECT * FROM cliente WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
 
