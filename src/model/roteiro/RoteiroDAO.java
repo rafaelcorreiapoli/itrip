@@ -5,6 +5,7 @@ import model.estadia.Estadia;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rafa93br on 08/11/16.
@@ -40,7 +41,7 @@ public class RoteiroDAO extends DAO {
                 throw new Error("Erro ao inserir roteiro.");
             }
             roteiro.setId(roteiroId);
-            ArrayList<Estadia> estadias = roteiro.getTodasEstadias();
+            List<Estadia> estadias = roteiro.getEstadias();
             System.out.print("Estadias size: " + estadias.size());
             for (Estadia estadia : estadias) {
                 String queryEstadia = "INSERT INTO estadia(data_chegada, data_saida, custo, cidade_id, hotel_id, roteiro_id, itinerario_id, itinerario_volta_id, dias) VALUES(?,?,?,?,?,?,?,?,?)";

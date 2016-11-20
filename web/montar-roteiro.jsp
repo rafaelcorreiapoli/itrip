@@ -77,46 +77,48 @@
                             <% Boolean configurandoIntermediaria = !configurandoDestino && !configurandoOrigem; %>
 
                             <% if (configurandoOrigem) { %>
-                            <h3>Cidade Origem</h3>
-                            <% } else if (configurandoDestino) { %>
-                            <h3>Cidade Destino</h3>
-                            <% } else { %>
-                            <h3>Estadia #<%=roteiro.getEstadias().size() - 1 %></h3>
-                            <% } %>
-
-                            <% if (estadia.getCidade() == null) { %>
-                            Escolher cidade:
-                            <select name="cidadeId">
-                                <% for (Cidade cidade : opcoesCidades ) { %>
-                                <option value="<%=cidade.getId()%>"><%=cidade.getNome()%></option>
+                                <h3>Cidade Origem</h3>
+                                <% } else if (configurandoDestino) { %>
+                                    <h3>Cidade Destino</h3>
+                                <% } else { %>
+                                    <h3>Estadia #<%=roteiro.getEstadias().size() - 1 %></h3>
                                 <% } %>
-                            </select>
-                            <input type="submit" name="selecionarCidade" value="Selecionar cidade" />
-                            <% } else { %>
-                            <p>Cidade: <%=estadia.getCidade().getNome() %></p>
-                            Escolher hotel:
-                            <select name="hotelId">
-                                <% for (Hotel hotel : opcoesHoteis ) { %>
-                                <option value="<%=hotel.getId()%>"><%=hotel.getNome()%></option>
-                                <% } %>
-                            </select>
-                            <br>
 
-                            <% if (configurandoOrigem) { %>
-                            Escolher itinerário entre cidade inicial e esta cidade:
-                            <% } else if (configurandoDestino) { %>
-                            Escolher itinerário entre cidade destino e cidade inicial:
+                                <% if (estadia.getCidade() == null) { %>
+                                Escolher cidade:
+                                <select name="cidadeId">
+                                    <% for (Cidade cidade : opcoesCidades ) { %>
+                                    <option value="<%=cidade.getId()%>"><%=cidade.getNome()%></option>
+                                    <% } %>
+                                </select><br>
+                                Data de chegada: <input type="date" name="dataChegada"><br>
+                                Data de saída: <input type="date" name="dataSaida"><br>
+                                <input type="submit" name="selecionarCidade" value="Selecionar cidade" />
                             <% } else { %>
-                            Escolher itinerário entre última cidade e esta cidade
-                            <% } %>
+                                <p>Cidade: <%=estadia.getCidade().getNome() %></p>
+                                Escolher hotel:
+                                <select name="hotelId">
+                                    <% for (Hotel hotel : opcoesHoteis ) { %>
+                                        <option value="<%=hotel.getId()%>"><%=hotel.getNome()%></option>
+                                    <% } %>
+                                </select>
+                                <br>
 
-                            <select name="<%= configurandoDestino ? "itinerarioVoltaId" : "itinerarioId" %>">
-                                <% for (Itinerario itinerario : opcoesItinerarios ) { %>
-                                    <option value="<%=itinerario.getId()%>"><%=itinerario.getMeioDeTransporte() + " - " + itinerario.getId() %></option>
+                                <% if (configurandoOrigem) { %>
+                                    Escolher itinerário entre cidade inicial e esta cidade:
+                                <% } else if (configurandoDestino) { %>
+                                    Escolher itinerário entre cidade destino e cidade inicial:
+                                <% } else { %>
+                                    Escolher itinerário entre última cidade e esta cidade
                                 <% } %>
-                            </select>
-                            <br>
-                            <input type="submit" name="finalizarEstadia" value="Adicionar estadia" />
+
+                                <select name="<%= configurandoDestino ? "itinerarioVoltaId" : "itinerarioId" %>">
+                                    <% for (Itinerario itinerario : opcoesItinerarios ) { %>
+                                        <option value="<%=itinerario.getId()%>"><%=itinerario.getMeioDeTransporte() + " - " + itinerario.getId() %></option>
+                                    <% } %>
+                                </select>
+                                <br>
+                                <input type="submit" name="finalizarEstadia" value="Adicionar estadia" />
                             <% } %>
                         </form>
 

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +66,8 @@ public class RoteiroController extends Controller {
         String itinerarioVoltaId = request.getParameter("itinerarioVoltaId");
         String cidadeId = request.getParameter("cidadeId");
         String itinerarioParaDestinoId = request.getParameter("itinerarioParaDestinoId");
+        String dataChegada = request.getParameter("dataChegada");
+        String dataSaida = request.getParameter("dataSaida");
 
         // Control
         String selecionarCliente = request.getParameter("selecionarCliente");
@@ -122,6 +126,16 @@ public class RoteiroController extends Controller {
         // Selecionou uma cidade para a estadia atual, devo mandar lista de hoteis e itinerarios
         else if (selecionarCidade != null && roteiro != null && estadia != null) {
             Integer intCidadeId = Integer.parseInt(cidadeId);
+            Date dateDataChegada = null;
+            Date dateDataSaida = null;
+            try {
+                dateDataChegada = new SimpleDateFormat("yyyy-MM-dd").parse(dataChegada);
+                dateDataSaida = new SimpleDateFormat("yyyy-MM-dd").parse(dataSaida);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             Cidade cidade = CidadeDAO.getInstance().getCidadeById(intCidadeId, true);
             List<Hotel> opcoesHoteis = HotelDAO.getInstance().getHoteisByCidade(intCidadeId);
             List<Itinerario> opcoesItinerarios = new ArrayList<Itinerario>();
@@ -137,6 +151,8 @@ public class RoteiroController extends Controller {
             request.setAttribute("opcoesHoteis", opcoesHoteis);
             request.setAttribute("opcoesItinerarios", opcoesItinerarios);
             estadia.setCidade(cidade);
+            estadia.setDataChegada(dateDataChegada);
+            estadia.setDataSaida(dateDataSaida);
         }
         // Selecionou o hotel e itinerario para estadia, vou adicioná-la ao roteiro
         else if (finalizarEstadia != null && roteiro != null && estadia != null) {
@@ -188,6 +204,7 @@ public class RoteiroController extends Controller {
             Integer intItinerarioParaDestinoId = Integer.parseInt(itinerarioParaDestinoId);
             Itinerario itinerario = ItinerarioDAO.getInstance().getItinerarioById(intItinerarioParaDestinoId);
             roteiro.getDestino().setItinerario(itinerario);
+            RoteiroDAO.getInstance().inserirRoteiro(roteiro);
             request.setAttribute("roteiroFinalizado", true);
         }
 
@@ -201,54 +218,54 @@ public class RoteiroController extends Controller {
     }
 
     protected void salvarRoteiro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //  Parse request body
-        String bodyString = reqBody(request);
-        RequestJson body = gson.fromJson(bodyString, RequestJson.class);
-
-        // Pegar instancias dos DAOs
-        CidadeDAO cidadeDAO = CidadeDAO.getInstance();
-        HotelDAO hotelDAO = HotelDAO.getInstance();
-        ItinerarioDAO itinerarioDAO = ItinerarioDAO.getInstance();
-        RoteiroDAO roteiroDAO = RoteiroDAO.getInstance();
-
-        // Instanciar Roteiro...
-        Cidade cidadeInicial = cidadeDAO.getCidadeById(body.cidadeInicial, true);
-        Roteiro roteiro = new Roteiro(cidadeInicial);
-
-        if (body.estadias.size() < 2) {
-            throw new Error("Precisa de no mínimo 2 estadias (origem e destino)");
-        }
-        // Iterar nas estadias recebidas no request
-        Integer i = 0;
-        for (RequestJson.EstadiaJson estadiaJson : body.estadias) {
-            // Instanciar cidade, hotel, itinerario (?????)
-            Cidade cidade = cidadeDAO.getCidadeById(estadiaJson.cidadeId, true);
-            Hotel hotel = hotelDAO.getHotelById(estadiaJson.hotelId);
-            Date dataChegada = estadiaJson.dataChegada;
-            Date dataSaida = estadiaJson.dataSaida;
-            Itinerario itinerario = itinerarioDAO.getItinerarioById(estadiaJson.itinerarioId);
-
-            // Instanciar estadia....
-            Estadia estadia = new Estadia(cidade, hotel, itinerario, dataChegada, dataSaida);
-
-            // Adicionar estadia ao roteiro
-            // Se for o primeiro, é origem
-            // Se for o ultimo, é destino
-            // Se não, é uma estadia
-            // Motivo: Há checagens especiais na origem e destino
-            // Poderia deixar separado apenas o destino, mas por questão de organização, separei também a origem
-            if (i == 0) {
-                roteiro.setOrigem(estadia);
-            } else if (i == body.estadias.size() - 1) {
-                Itinerario itinerarioVolta = itinerarioDAO.getInstance().getItinerarioById(estadiaJson.itinerarioVoltaId);
-                estadia.setItinerarioVolta(itinerarioVolta);
-                roteiro.setDestino(estadia);
-            } else {
-                roteiro.adicionarEstadia(estadia);
-            }
-
-            i++;
-        }
+//        //  Parse request body
+//        String bodyString = reqBody(request);
+//        RequestJson body = gson.fromJson(bodyString, RequestJson.class);
+//
+//        // Pegar instancias dos DAOs
+//        CidadeDAO cidadeDAO = CidadeDAO.getInstance();
+//        HotelDAO hotelDAO = HotelDAO.getInstance();
+//        ItinerarioDAO itinerarioDAO = ItinerarioDAO.getInstance();
+//        RoteiroDAO roteiroDAO = RoteiroDAO.getInstance();
+//
+//        // Instanciar Roteiro...
+//        Cidade cidadeInicial = cidadeDAO.getCidadeById(body.cidadeInicial, true);
+//        Roteiro roteiro = new Roteiro(cidadeInicial);
+//
+//        if (body.estadias.size() < 2) {
+//            throw new Error("Precisa de no mínimo 2 estadias (origem e destino)");
+//        }
+//        // Iterar nas estadias recebidas no request
+//        Integer i = 0;
+//        for (RequestJson.EstadiaJson estadiaJson : body.estadias) {
+//            // Instanciar cidade, hotel, itinerario (?????)
+//            Cidade cidade = cidadeDAO.getCidadeById(estadiaJson.cidadeId, true);
+//            Hotel hotel = hotelDAO.getHotelById(estadiaJson.hotelId);
+//            Date dataChegada = estadiaJson.dataChegada;
+//            Date dataSaida = estadiaJson.dataSaida;
+//            Itinerario itinerario = itinerarioDAO.getItinerarioById(estadiaJson.itinerarioId);
+//
+//            // Instanciar estadia....
+//            Estadia estadia = new Estadia(cidade, hotel, itinerario, dataChegada, dataSaida);
+//
+//            // Adicionar estadia ao roteiro
+//            // Se for o primeiro, é origem
+//            // Se for o ultimo, é destino
+//            // Se não, é uma estadia
+//            // Motivo: Há checagens especiais na origem e destino
+//            // Poderia deixar separado apenas o destino, mas por questão de organização, separei também a origem
+//            if (i == 0) {
+//                roteiro.setOrigem(estadia);
+//            } else if (i == body.estadias.size() - 1) {
+//                Itinerario itinerarioVolta = itinerarioDAO.getInstance().getItinerarioById(estadiaJson.itinerarioVoltaId);
+//                estadia.setItinerarioVolta(itinerarioVolta);
+//                roteiro.setDestino(estadia);
+//            } else {
+//                roteiro.adicionarEstadia(estadia);
+//            }
+//
+//            i++;
+//        }
 
 
     }

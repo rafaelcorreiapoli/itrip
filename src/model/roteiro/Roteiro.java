@@ -15,8 +15,6 @@ public class Roteiro {
     Integer id;
     Cidade cidadeInicial;
     List<Estadia> estadias = new ArrayList<Estadia>();
-    Estadia origem;
-    Estadia destino;
 
     public Roteiro() {
     }
@@ -42,14 +40,6 @@ public class Roteiro {
         return estadias;
     }
 
-    public ArrayList<Estadia> getTodasEstadias() {
-        ArrayList<Estadia> todasEstadias = new ArrayList<Estadia>();
-        todasEstadias.add(this.origem);
-        todasEstadias.addAll(this.estadias);
-        todasEstadias.add(this.destino);
-
-        return todasEstadias;
-    }
 
     public void adicionarEstadia(Estadia estadia) {
 
@@ -103,32 +93,5 @@ public class Roteiro {
         this.id = id;
     }
 
-    public Estadia getOrigem() {
-        return origem;
-    }
 
-    public void setOrigem(Estadia origem) {
-        // Verificar se existe aeroporto na origem
-        if (!origem.getCidade().isTemAeroporto()) {
-            throw new Error("Não tem aeroporto na origem.");
-        }
-        this.origem = origem;
-    }
-
-
-    public void setDestino(Estadia destino) {
-        // Verificar se itinerário do destino parte da última estadia
-        if (!destino.getItinerario().getParteDe().getId().equals(estadias.get(estadias.size() - 1).getCidade().getId())) {
-            throw new Error("Itinerário Destino não parte da última estadia.");
-        }
-        // Verificar se o itinerário de volta chega na cidade inicial
-        if (!destino.getItinerarioVolta().getChegaEm().getId().equals(cidadeInicial.getId())) {
-            throw new Error("Itnerário não volta para cidade inicial");
-        }
-        // Verificar se destino tem aeroporto
-        if (!destino.getCidade().isTemAeroporto()) {
-            throw new Error("Não tem aeroporto no destino.");
-        }
-        this.destino = destino;
-    }
 }

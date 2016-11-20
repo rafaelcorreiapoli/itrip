@@ -53,7 +53,7 @@ public class Estadia {
     }
 
     private Double calcularCusto() {
-        return this.itinerario.getCusto() + (this.hotel.getPrecoDiaria() * this.dias);
+        return this.itinerario.getCusto() + (this.hotel.getPrecoDiaria() * this.calcularDias());
     }
 
     private Integer calcularDias() {
@@ -90,11 +90,11 @@ public class Estadia {
     }
 
     public Double getCusto() {
-        return custo;
+        return this.calcularCusto();
     }
 
     public Integer getDias() {
-        return dias;
+        return this.calcularDias();
     }
 
     public Itinerario getItinerarioVolta() {
@@ -111,5 +111,13 @@ public class Estadia {
 
     public void setItinerario(Itinerario itinerario) {
         this.itinerario = itinerario;
+    }
+
+    public void setDataChegada(Date dataChegada) {
+        this.dataChegada = dataChegada;
+    }
+
+    public void setDataSaida(Date dataSaida) {
+        this.dataSaida = dataSaida;
     }
 }
