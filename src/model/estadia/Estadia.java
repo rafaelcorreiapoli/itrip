@@ -45,6 +45,8 @@ public class Estadia {
     }
 
 
+    public Estadia() {
+    }
 
     public Roteiro getRoteiro() {
         return roteiro;
@@ -101,5 +103,13 @@ public class Estadia {
 
     public void setItinerarioVolta(Itinerario itinerarioVolta) {
         this.itinerarioVolta = itinerarioVolta;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public void setItinerario(Itinerario itinerario) {
+        this.itinerario = itinerario;
     }
 }

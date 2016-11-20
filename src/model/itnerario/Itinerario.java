@@ -48,4 +48,11 @@ public class Itinerario {
         this.chegaEm = chegaEm;
     }
 
+    public String getMeioDeTransporte() {
+        return meioDeTransporte;
+    }
+
+    public void setMeioDeTransporte(String meioDeTransporte) {
+        this.meioDeTransporte = meioDeTransporte;
+    }
 }

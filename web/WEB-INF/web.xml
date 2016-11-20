@@ -65,6 +65,7 @@
     <servlet-mapping>
         <servlet-name>roteiro</servlet-name>
         <url-pattern>/salvar-roteiro</url-pattern>
+        <url-pattern>/montar-roteiro</url-pattern>
     </servlet-mapping>
 
     <filter>

@@ -18,6 +18,9 @@ public class Roteiro {
     Estadia origem;
     Estadia destino;
 
+    public Roteiro() {
+    }
+
     public Roteiro(Cidade cidadeInicial) {
         this.cidadeInicial = cidadeInicial;
     }
@@ -50,23 +53,43 @@ public class Roteiro {
 
     public void adicionarEstadia(Estadia estadia) {
 
-        if (this.estadias.size() == 0) {
-            //  Validar se o itinerário da primeira estadia parte da cidade da estadia origem
-            if (!estadia.getItinerario().getParteDe().getId().equals(origem.getCidade().getId())) {
-                throw new Error ("Itinerário da primeira estadia não parte da origem");
-            }
-        } else {
-            // Validar se o itinerário da estadia n parte da cidade da estadia n - 1
-            Estadia estadiaAnterior = this.estadias.get(this.estadias.size() - 1);
+//        if (this.estadias.size() == 0) {
+//            //  Validar se o itinerário da primeira estadia parte da cidade da estadia origem
+//            if (!estadia.getItinerario().getParteDe().getId().equals(origem.getCidade().getId())) {
+//                throw new Error ("Itinerário da primeira estadia não parte da origem");
+//            }
+//        } else {
+//            // Validar se o itinerário da estadia n parte da cidade da estadia n - 1
+//            Estadia estadiaAnterior = this.estadias.get(this.estadias.size() - 1);
+//
+//            if (!estadia.getItinerario().getParteDe().getId().equals(estadiaAnterior.getCidade().getId())) {
+//                throw new Error("Itinerário entre duas estadias não é valido");
+//            }
+//        }
 
-            if (!estadia.getItinerario().getParteDe().getId().equals(estadiaAnterior.getCidade().getId())) {
-                throw new Error("Itinerário entre duas estadias não é valido");
-            }
+        if (this.estadias.size() == 0) {
+            this.estadias.add(estadia);
+        } else if (this.estadias.size() == 1) {
+            this.estadias.add(estadia);
+        } else {
+            this.estadias.add(this.estadias.size() - 1, estadia);
         }
 
-        this.estadias.add(estadia);
     }
 
+    public Estadia getUltimaEstadiaIntermediaria() {
+        if (this.estadias.size() >= 2) {
+            return this.estadias.get(this.estadias.size() - 2);
+        }
+        return null;
+    }
+
+    public Estadia getDestino() {
+        if (this.estadias.size() >= 2) {
+            return this.estadias.get(this.estadias.size() - 1);
+        }
+        return null;
+    }
     public Integer getId() {
         return id;
     }
@@ -92,11 +115,12 @@ public class Roteiro {
         this.origem = origem;
     }
 
-    public Estadia getDestino() {
-        return destino;
-    }
 
     public void setDestino(Estadia destino) {
+        // Verificar se itinerário do destino parte da última estadia
+        if (!destino.getItinerario().getParteDe().getId().equals(estadias.get(estadias.size() - 1).getCidade().getId())) {
+            throw new Error("Itinerário Destino não parte da última estadia.");
+        }
         // Verificar se o itinerário de volta chega na cidade inicial
         if (!destino.getItinerarioVolta().getChegaEm().getId().equals(cidadeInicial.getId())) {
             throw new Error("Itnerário não volta para cidade inicial");
