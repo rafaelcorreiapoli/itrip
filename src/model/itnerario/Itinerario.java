@@ -52,6 +52,14 @@ public class Itinerario {
         return meioDeTransporte;
     }
 
+    public Integer getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(Integer duracao) {
+        this.duracao = duracao;
+    }
+
     public void setMeioDeTransporte(String meioDeTransporte) {
         this.meioDeTransporte = meioDeTransporte;
     }

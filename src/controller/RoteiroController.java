@@ -75,6 +75,8 @@ public class RoteiroController extends Controller {
         String finalizarRoteiro = request.getParameter("finalizarRoteiro");
         String finalizarEstadia = request.getParameter("finalizarEstadia");
         String selecionarCidadeInicial = request.getParameter("selecionarCidadeInicial");
+        String confirmarCriacao = request.getParameter("confirmarCriacao");
+        String recomecarRoteiro = request.getParameter("recomecarRoteiro");
 
         HttpSession session = request.getSession();
 
@@ -83,6 +85,7 @@ public class RoteiroController extends Controller {
 
         request.setAttribute("roteiroFinalizado", false);
         request.setAttribute("podeFinalizar", false);
+        request.setAttribute("roteiroSalvo", false);
 
         Boolean configurandoOrigem = null;
         Boolean configurandoDestino = null;
@@ -129,6 +132,7 @@ public class RoteiroController extends Controller {
             Date dateDataChegada = null;
             Date dateDataSaida = null;
             try {
+                System.out.println(dataChegada);
                 dateDataChegada = new SimpleDateFormat("yyyy-MM-dd").parse(dataChegada);
                 dateDataSaida = new SimpleDateFormat("yyyy-MM-dd").parse(dataSaida);
             } catch (ParseException e) {
@@ -204,8 +208,15 @@ public class RoteiroController extends Controller {
             Integer intItinerarioParaDestinoId = Integer.parseInt(itinerarioParaDestinoId);
             Itinerario itinerario = ItinerarioDAO.getInstance().getItinerarioById(intItinerarioParaDestinoId);
             roteiro.getDestino().setItinerario(itinerario);
-            RoteiroDAO.getInstance().inserirRoteiro(roteiro);
             request.setAttribute("roteiroFinalizado", true);
+        } else if (confirmarCriacao != null && roteiro != null) {
+            RoteiroDAO.getInstance().inserirRoteiro(roteiro);
+            request.setAttribute("roteiroSalvo", true);
+            request.setAttribute("roteiroFinalizado", true);
+        } else if (recomecarRoteiro != null && roteiro != null) {
+            session.setAttribute("roteiro", new Roteiro());
+            List<Cidade> opcoesCidadesIniciais = CidadeDAO.getInstance().getAll();
+            request.setAttribute("opcoesCidadesIniciais", opcoesCidadesIniciais);
         }
 
 
