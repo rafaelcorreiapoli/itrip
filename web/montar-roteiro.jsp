@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        h4 {
+            margin-top: 0px;
+        }
+    </style>
 </head>
 <body>
     <% Cliente cliente = (Cliente) session.getAttribute("cliente"); %>
@@ -59,7 +64,7 @@
                             <h4>Selecione um cliente pelo CPF</h4>
                             <form method="POST" action="/montar-roteiro">
                                 <% if (clienteNaoEncontrado != null) { %>
-                                <h4 class="red-text">Cliente não encontrado</h4>
+                                <h5 class="red-text">Cliente não encontrado</h5>
                                 <% }%>
                                 <div class="row">
                                     <div class="input-field col s6">
