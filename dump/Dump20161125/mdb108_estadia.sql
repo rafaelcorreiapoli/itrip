@@ -1,0 +1,67 @@
+-- MySQL dump 10.13  Distrib 5.7.13, for linux-glibc2.5 (x86_64)
+--
+-- Host: localhost    Database: mdb108
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.18-MariaDB-1~xenial
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `estadia`
+--
+
+DROP TABLE IF EXISTS `estadia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estadia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data_chegada` datetime DEFAULT NULL,
+  `data_saida` datetime DEFAULT NULL,
+  `custo` double DEFAULT NULL,
+  `cidade_id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `roteiro_id` int(11) NOT NULL,
+  `itinerario_id` int(11) NOT NULL,
+  `dias` varchar(45) DEFAULT NULL,
+  `itinerario_volta_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `estadia_roteiro_fkey_idx` (`roteiro_id`),
+  KEY `estadia_hotel_fkey_idx` (`hotel_id`),
+  KEY `estadia_cidade_fkey_idx` (`cidade_id`),
+  KEY `estadia_itinerario_fkey_idx` (`itinerario_id`),
+  CONSTRAINT `estadia_cidade_fkey` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `estadia_hotel_fkey` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `estadia_itinerario_fkey` FOREIGN KEY (`itinerario_id`) REFERENCES `itinerario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `estadia_roteiro_fkey` FOREIGN KEY (`roteiro_id`) REFERENCES `roteiro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estadia`
+--
+
+LOCK TABLES `estadia` WRITE;
+/*!40000 ALTER TABLE `estadia` DISABLE KEYS */;
+INSERT INTO `estadia` VALUES (39,'2012-12-10 00:00:00','2012-12-11 00:00:00',58,3,3,25,1,'2',NULL),(40,'2012-12-10 00:00:00','2012-12-11 00:00:00',60,2,5,25,3,'2',NULL),(41,'2012-12-10 00:00:00','2012-12-11 00:00:00',21,6,6,25,5,'2',9),(42,'2016-05-13 00:00:00','2016-05-16 00:00:00',100,2,5,26,3,'4',NULL),(43,'2016-05-20 00:00:00','2016-05-22 00:00:00',31,1,1,26,8,'3',1),(44,'2016-06-01 00:00:00','2016-06-02 00:00:00',60,2,5,27,3,'2',NULL),(45,'2016-10-06 00:00:00','2016-12-06 00:00:00',611,1,1,27,8,'61',1),(46,'2016-01-01 00:00:00','2016-01-10 00:00:00',220,2,5,28,3,'10',NULL),(47,'2016-01-11 00:00:00','2016-01-20 00:00:00',101,1,1,28,8,'10',1),(48,'2016-01-01 00:00:00','2016-01-02 00:00:00',60,2,5,29,3,'2',NULL),(49,'2016-01-03 00:00:00','2016-01-06 00:00:00',41,1,1,29,8,'4',1),(50,'2016-01-06 00:00:00','2016-01-08 00:00:00',80,2,5,30,3,'3',NULL),(51,'2016-10-01 00:00:00','2016-12-01 00:00:00',611,1,1,30,8,'61',1),(52,'2016-01-06 00:00:00','2016-01-08 00:00:00',80,2,5,31,3,'3',NULL),(53,'2016-10-01 00:00:00','2016-12-01 00:00:00',611,1,1,31,8,'61',1),(54,'2016-01-06 00:00:00','2016-01-08 00:00:00',80,2,5,32,3,'3',NULL),(55,'2016-10-01 00:00:00','2016-12-01 00:00:00',611,1,1,32,8,'61',1),(56,'2016-11-25 00:00:00','2016-11-26 00:00:00',60,2,5,33,3,'2',NULL),(57,'2016-11-17 00:00:00','2016-11-30 00:00:00',141,6,6,33,5,'14',NULL),(58,'2016-11-25 00:00:00','2016-11-26 00:00:00',21,1,1,33,9,'2',1),(59,'2016-11-25 00:00:00','2016-11-26 00:00:00',21,1,1,34,10,'2',NULL),(60,'2016-11-26 00:00:00','2016-11-30 00:00:00',150,4,4,34,2,'5',7);
+/*!40000 ALTER TABLE `estadia` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-11-25  2:52:41
