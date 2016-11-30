@@ -62,11 +62,23 @@
         <servlet-class>controller.RoteiroController</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>sugerirRoteiro</servlet-name>
+        <servlet-class>controller.SugerirRoteiroController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>sugerirRoteiro</servlet-name>
+        <url-pattern>/sugerir-roteiro</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>roteiro</servlet-name>
         <url-pattern>/salvar-roteiro</url-pattern>
         <url-pattern>/montar-roteiro</url-pattern>
     </servlet-mapping>
+
+
 
     <filter>
         <filter-name>CorsFilter</filter-name>

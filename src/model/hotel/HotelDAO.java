@@ -35,7 +35,7 @@ public class HotelDAO extends DAO {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM hotel WHERE cidade_id = ?";
+            String query = "SELECT * FROM hotel WHERE cidade_id = ? ORDER BY preco_diaria ASC";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, cidadeId);
 

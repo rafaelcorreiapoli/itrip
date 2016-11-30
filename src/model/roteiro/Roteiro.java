@@ -41,6 +41,10 @@ public class Roteiro {
     }
 
 
+    public void setEstadias(List<Estadia> estadias) {
+        this.estadias = estadias;
+    }
+
     public void adicionarEstadia(Estadia estadia) {
 
 //        if (this.estadias.size() == 0) {

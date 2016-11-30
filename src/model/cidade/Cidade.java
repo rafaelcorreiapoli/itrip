@@ -1,5 +1,7 @@
 package model.cidade;
 
+import model.hotel.Hotel;
+import model.hotel.HotelDAO;
 import model.itnerario.Itinerario;
 
 import java.util.ArrayList;
@@ -11,6 +13,15 @@ import java.util.List;
 public class Cidade {
     private String nome;
     private boolean temAeroporto;
+
+    public int getNumeroDiasIdeal() {
+        return numeroDiasIdeal;
+    }
+
+    public void setNumeroDiasIdeal(int numeroDiasIdeal) {
+        this.numeroDiasIdeal = numeroDiasIdeal;
+    }
+
     private int numeroDiasIdeal;
     private Integer id;
     List<Itinerario> itinerarios = new ArrayList<Itinerario>();
@@ -68,5 +79,12 @@ public class Cidade {
         return temAeroporto;
     }
 
+    public Hotel hotelNaMediana() {
+        List<Hotel> hoteis = HotelDAO.getInstance().getHoteisByCidade(this.getId());
+
+        double count = (double) hoteis.size();
+        Integer target = (int) Math.ceil(count / 2) - 1;
+        return hoteis.get(target);
+    }
 
 }

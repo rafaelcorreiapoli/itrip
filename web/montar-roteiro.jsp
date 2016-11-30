@@ -374,7 +374,7 @@
                                             <% } %>
                                             <tr class="teal lighten-5">
                                                 <td>Total</td>
-                                                <td>R$ <%=custoHotel + custoItinerario + custoItinerarioVolta%></td>
+                                                <td>R$ <%=estadiaI.getCusto()%></td>
                                             </tr>
                                         </tbody>
                                     </table>
