@@ -9,35 +9,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>iTrip - Listar Clientes</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-    <div>
-        <a href="adicionar-cliente">Adicionar Cliente</a> |
-        <a href="listar-clientes">Listar Clientes</a>
-    </div>
+    <%@ include file="nav.jsp" %>
 
-    <hr>
-    <h2>Lista de clientes</h2>
+    <div class="container fluid" style="margin-top: 20px;">
+        <h2>Lista de clientes</h2>
     <%
         ArrayList<Cliente> clientes = (ArrayList<Cliente>) request.getAttribute("clientes");
-
         for (Cliente cliente : clientes) { %>
-    <div class="">
-        <p>Nome:
-            <a href="/editar-cliente?id=<%=cliente.getId() %>">
-                <b><%= cliente.getNome() %></b>
-            </a>
+            <div class="">
+                <p>Nome:
+                    <a href="/editar-cliente?id=<%=cliente.getId() %>">
+                        <b><%= cliente.getNome() %></b>
+                    </a>
 
-        </p>
-        <p>CPF: <b><%= cliente.getCpf() %></b></p>
-        <form method="POST" action="/deletar-cliente-post?id=<%=cliente.getId() %>">
-            <input type="submit" value="X" />
-        </form>
+                </p>
+                <p>CPF: <b><%= cliente.getCpf() %></b></p>
+                <form method="POST" action="/deletar-cliente-post?id=<%=cliente.getId() %>">
+                    <input type="submit" value="X" />
+                </form>
+            </div>
+            <hr>
+        <% } %>
     </div>
-    <hr>
-    <% }
-    %>
 
 </body>
 </html>

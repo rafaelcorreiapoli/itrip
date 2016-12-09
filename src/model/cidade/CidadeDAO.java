@@ -39,14 +39,19 @@ public class CidadeDAO extends DAO {
         return cidades;
     }
 
-    public List<Cidade> getCidadesQueAcessamCidade(Integer cidadeId) {
+    public List<Cidade> getCidadesQueAcessamCidade(Integer cidadeId, Boolean necessitaAeroporto) {
         ArrayList<Cidade> cidades = new ArrayList<>();
 
         try {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.chega_em = ? AND I.parte_de = C.id GROUP BY parte_de";
+            String query;
+            if (necessitaAeroporto) {
+                query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.chega_em = ? AND I.parte_de = C.id AND tem_aeroporto=TRUE AND I.meio_de_transporte='Avião' GROUP BY parte_de";
+            } else {
+                query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.chega_em = ? AND I.parte_de = C.id GROUP BY parte_de";
+            }
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, cidadeId);
 
@@ -65,14 +70,19 @@ public class CidadeDAO extends DAO {
         return cidades;
     }
 
-    public List<Cidade> getCidadesAcessiveisPorCidade(Integer cidadeId) {
+    public List<Cidade> getCidadesAcessiveisPorCidade(Integer cidadeId, Boolean necessitaAeroporto) {
         ArrayList<Cidade> cidades = new ArrayList<>();
 
         try {
             Connection connection = getConexao();
             Statement statement = connection.createStatement();
 
-            String query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.parte_de = ? AND I.chega_em = C.id GROUP BY chega_em";
+            String query;
+            if (necessitaAeroporto) {
+                query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.parte_de = ? AND I.chega_em = C.id AND tem_aeroporto=TRUE AND I.meio_de_transporte='Avião' GROUP BY chega_em";
+            } else {
+                query = "SELECT C.id, nome, tem_aeroporto, numero_dias_ideal FROM itinerario I, cidade C WHERE I.parte_de = ? AND I.chega_em = C.id GROUP BY chega_em";
+            }
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, cidadeId);
 

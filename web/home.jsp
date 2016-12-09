@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: rafa93br
-  Date: 04/11/16
-  Time: 19:51
+  Date: 09/12/16
+  Time: 03:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Montar roteiro</title>
+    <title>iTrip</title>
 </head>
 <body>
-    <h1>Montar roteiro</h1>
+    Home
 </body>
 </html>

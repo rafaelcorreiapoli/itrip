@@ -49,8 +49,8 @@ public class SugerirRoteiroController extends HttpServlet {
                 Cidade cidadeInicial = CidadeDAO.getInstance().getCidadeById(cidadeInicialId, false);
                 roteiro.setCidadeInicial(cidadeInicial);
 
-                List<Cidade> opcoesCidadesOrigem = cidadeDAO.getCidadesAcessiveisPorCidade(cidadeInicial.getId());
-                List<Cidade> opcoesCidadesDestino = cidadeDAO.getCidadesQueAcessamCidade(cidadeInicial.getId());
+                List<Cidade> opcoesCidadesOrigem = cidadeDAO.getCidadesAcessiveisPorCidade(cidadeInicial.getId(), true);
+                List<Cidade> opcoesCidadesDestino = cidadeDAO.getCidadesQueAcessamCidade(cidadeInicial.getId(), true);
 
                 request.setAttribute("opcoesCidadesOrigem", opcoesCidadesOrigem);
                 request.setAttribute("opcoesCidadesDestino", opcoesCidadesDestino);

@@ -54,12 +54,16 @@ public class Estadia {
 
     private Double calcularCusto() {
         Itinerario itinerarioVolta = this.getItinerarioVolta();
+        Double custoItinerario = 0d;
         Double custoItinerarioVolta = 0d;
         if (itinerarioVolta != null) {
             custoItinerarioVolta = itinerarioVolta.getCusto();
         }
+        if (itinerario != null) {
+            custoItinerario = itinerario.getCusto();
+        }
 
-        return this.itinerario.getCusto() + (this.hotel.getPrecoDiaria() * this.calcularDias()) + custoItinerarioVolta;
+        return custoItinerario + (this.hotel.getPrecoDiaria() * this.calcularDias()) + custoItinerarioVolta;
     }
 
     private Integer calcularDias() {

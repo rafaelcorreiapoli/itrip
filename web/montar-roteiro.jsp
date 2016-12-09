@@ -43,16 +43,8 @@
     <% Boolean clienteNaoEncontrado = (Boolean) request.getAttribute("clienteNaoEncontrado"); %>
     <% Boolean roteiroFinalizado = (Boolean) request.getAttribute("roteiroFinalizado"); %>
     <% Boolean roteiroSalvo = (Boolean) request.getAttribute("roteiroSalvo"); %>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">iTrip</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="/adicionar-cliente">Adicionar Cliente</a></li>
-                <li><a href="/listar-clientes">Listar Clientes</a></li>
-                <li><a href="/montar-roteiro">Montar Roteiro</a></li>
-            </ul>
-        </div>
-    </nav>
+
+    <%@ include file="nav.jsp" %>
     <div class="container fluid" style="margin-top: 20px;">
         <div class="row">
             <div class="col s6">

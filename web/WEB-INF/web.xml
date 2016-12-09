@@ -16,6 +16,11 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>controller.HomeController</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>hotel</servlet-name>
         <servlet-class>controller.HotelController</servlet-class>
     </servlet>
@@ -31,6 +36,11 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>cliente</servlet-name>
         <url-pattern>/clientes</url-pattern>
         <url-pattern>/cliente</url-pattern>
@@ -43,6 +53,7 @@
         <url-pattern>/deletar-cliente-post</url-pattern>
 
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>cidade</servlet-name>

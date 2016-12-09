@@ -102,7 +102,7 @@ public class RoteiroController extends Controller {
             Cidade cidadeInicial = CidadeDAO.getInstance().getCidadeById(intCidadeInicialId, true);
             roteiro.setCidadeInicial(cidadeInicial);
 
-            List<Cidade> opcoesCidades = CidadeDAO.getInstance().getCidadesAcessiveisPorCidade(intCidadeInicialId);
+            List<Cidade> opcoesCidades = CidadeDAO.getInstance().getCidadesAcessiveisPorCidade(intCidadeInicialId, true);
 
             request.setAttribute("opcoesCidades", opcoesCidades);
             session.setAttribute("estadia", new Estadia());
@@ -161,9 +161,9 @@ public class RoteiroController extends Controller {
             List<Cidade> opcoesCidades;
 
             if (configurandoOrigem) { // setou origem, agora as opcoes são os possiveis destinos
-                opcoesCidades = CidadeDAO.getInstance().getCidadesQueAcessamCidade(roteiro.getCidadeInicial().getId());
+                opcoesCidades = CidadeDAO.getInstance().getCidadesQueAcessamCidade(roteiro.getCidadeInicial().getId(), true);
             } else {// setou destino ou intermediaria, agora as opções são as entre a penultima cidade
-                opcoesCidades = CidadeDAO.getInstance().getCidadesAcessiveisPorCidade(roteiro.getUltimaEstadiaIntermediaria().getCidade().getId());
+                opcoesCidades = CidadeDAO.getInstance().getCidadesAcessiveisPorCidade(roteiro.getUltimaEstadiaIntermediaria().getCidade().getId(), false);
             }
 
 
